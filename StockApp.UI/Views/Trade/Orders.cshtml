@@ -1,0 +1,51 @@
+﻿@model OrdersViewModel
+
+@{
+    ViewBag.Title = "Trading Orders";
+}
+
+<div>
+    <div class="ml">
+        <div class="text-grey">
+            <span>Stocks</span>
+            <i class="fa-solid fa-caret-right"></i>
+            <span>Orders</span>
+        </div>
+    </div>
+    <div class="flex orders-list">
+        <div class="flex-1 box">
+            <div>
+                <span class="text-grey">Buy Orders</span>
+            </div>
+            @foreach (BuyOrderResponse buyOrder in Model.BuyOrders)
+            {
+                <div class="border-bottom ml" id="buy-orders-list">
+                    <span style="font-size: 16pt; font-weight: bold">@buyOrder.StockName (@buyOrder.StockSymbol)</span><br />
+                    <span style="font-size: 12pt; font-weight: bold">@buyOrder.Quantity</span>
+                    <span class="text-grey"> shares at </span>
+                    <span style="font-size: 12pt; font-weight: bold">$@buyOrder.Price</span><br/>
+                    <span class="text-grey" style="font-weight: bold">Trade Amount: </span>
+                    <span style="font-size: 12pt; font-weight: bold">$@buyOrder.TradeAmount.ToString("0,000.00")</span><br/>
+                    <span class="text-grey" style="font-size: 16pt;">@buyOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</span>
+                </div>
+            }
+        </div>
+        <div class="flex-1 pr box">
+            <div>
+                <span class="text-grey">Sell Orders</span>
+            </div>
+            @foreach (SellOrderResponse sellOrder in Model.SellOrders)
+            {
+                <div class="border-bottom ml" id="sell-orders-list">
+                    <span style="font-size: 16pt; font-weight: bold">@sellOrder.StockName (@sellOrder.StockSymbol)</span><br />
+                    <span style="font-size: 12pt; font-weight: bold">@sellOrder.Quantity</span>
+                    <span class="text-grey"> shares at </span>
+                    <span style="font-size: 12pt; font-weight: bold">$@sellOrder.Price</span><br />
+                    <span class="text-grey" style="font-weight: bold">Trade Amount: </span>
+                    <span style="font-size: 12pt; font-weight: bold">$@sellOrder.TradeAmount.ToString("0,000.00")</span><br />
+                    <span class="text-grey" style="font-size: 16pt;">@sellOrder.DateAndTimeOfOrder.ToString("dd MMMM yyyy hh:mm:ss tt")</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

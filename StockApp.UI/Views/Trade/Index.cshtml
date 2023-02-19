@@ -1,0 +1,52 @@
+﻿@model StockTradeViewModel
+
+@{
+    ViewBag.Title = "Trading Stocks";
+}
+<div>
+    <div class="ml">
+        <div class="text-grey">
+            <span>Stocks</span>
+            <i class="fa fa-caret-right"></i>
+            <span>@Model.StockName</span>
+        </div>
+    </div>
+    <div class="box grey-back">
+        <div class="flex">
+            <div class="center-box" id="stock-price-panel">
+                <div class="stock-title">
+                    <text class="text-blue">@Model.StockName (@Model.StockSymbol)</text>
+                </div>
+                <text class="text-grey" style="font-size: 4em">$ </text><text class="stock-price">@Model.Price</text>
+            </div>
+            <div class="flex-1 pr" id="new-order-panel">
+                <form method="post">
+                    <text class="text-grey">New Order</text>
+                    <p class="mb">Quantity:</p>
+                    <input asp-for="Quantity" class="form-input mb" style="width: 100px" min="0" max="100000"/><br />
+                    <input asp-for="StockSymbol" type="hidden" />
+                    <input asp-for="StockName" type="hidden" />
+                    <input asp-for="Price" type="hidden" />
+                    <button asp-controller="Trade" asp-action="SellOrder" class="fa-solid fa-arrow-down trading-button button-red-back"> Sell</button>
+                    <button asp-controller="Trade" asp-action="BuyOrder" class="fa-solid fa-arrow-up trading-button button-green-back"> Buy</button>
+                </form>
+                @if(ViewBag.Errors != null)
+                {
+                    <div class="text-red">
+                        <ul>
+                            @foreach(string error in ViewBag.Errors)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="FinnhubKey" value="@ViewBag.FinnhubKey" />
+</div>
+
+@section Scripts {
+    <script src="~/js/tradestocks.js"></script>
+}
